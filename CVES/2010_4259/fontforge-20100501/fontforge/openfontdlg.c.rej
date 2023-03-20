@@ -1,0 +1,19 @@
+***************
+*** 25,32 ****
+   * ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+   */
+  #include "fontforgegtk.h"
+- # include <fontforge/gfile.h>
+- # include <fontforge/ustring.h>
+  # include <gtk/gtk.h>
+  # include <gdk/gdkkeysyms.h>
+  # include "gwwvask.h"
+--- 25,32 ----
+   * ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+   */
+  #include "fontforgegtk.h"
++ # include <gfile.h>
++ # include <ustring.h>
+  # include <gtk/gtk.h>
+  # include <gdk/gdkkeysyms.h>
+  # include "gwwvask.h"

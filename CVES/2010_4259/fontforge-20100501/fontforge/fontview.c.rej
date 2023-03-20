@@ -1,0 +1,21 @@
+***************
+*** 27,35 ****
+  #include "fontforgegtk.h"
+  #include <fontforge/groups.h>
+  #include <fontforge/psfont.h>
+- #include <fontforge/gfile.h>
+- #include <fontforge/utype.h>
+- #include <fontforge/ustring.h>
+  #include <glib.h>
+  #include <math.h>
+  #include <unistd.h>
+--- 27,35 ----
+  #include "fontforgegtk.h"
+  #include <fontforge/groups.h>
+  #include <fontforge/psfont.h>
++ #include <gfile.h>
++ #include <utype.h>
++ #include <ustring.h>
+  #include <glib.h>
+  #include <math.h>
+  #include <unistd.h>

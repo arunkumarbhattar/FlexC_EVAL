@@ -1,0 +1,208 @@
+This file contains any messages produced by compilers while
+running configure, to aid debugging if configure makes a mistake.
+
+configure:562: checking for a BSD compatible install
+configure:616: checking how to run the C preprocessor
+configure:637: gcc -E  conftest.c >/dev/null 2>conftest.out
+configure:677: checking whether make sets ${MAKE}
+configure:706: checking for gcc
+configure:783: checking whether the C compiler (gcc -g -O2 ) works
+configure:797: gcc -o conftest -g -O2   conftest.c  1>&5
+configure:794:1: warning: return type defaults to 'int' [-Wimplicit-int]
+  794 | main(){return(0);}
+      | ^~~~
+configure:817: checking whether the C compiler (gcc -g -O2 ) is a cross-compiler
+configure:822: checking whether we are using GNU C
+configure:831: gcc -E conftest.c
+configure:846: checking whether gcc accepts -g
+configure:876: checking for ranlib
+configure:903: checking for POSIXized ISC
+configure:924: checking for ANSI C header files
+configure:937: gcc -E  conftest.c >/dev/null 2>conftest.out
+configure:1004: gcc -o conftest -g -O2   conftest.c  1>&5
+configure: In function 'main':
+configure:999:67: warning: implicit declaration of function 'exit' [-Wimplicit-function-declaration]
+  999 | if (XOR (islower (i), ISLOWER (i)) || toupper (i) != TOUPPER (i)) exit(2);
+      |                                                                   ^~~~
+configure:995:1: note: include '<stdlib.h>' or provide a declaration of 'exit'
+  994 | #include <ctype.h>
+  +++ |+#include <stdlib.h>
+  995 | #define ISLOWER(c) ('a' <= (c) && (c) <= 'z')
+configure:999:67: warning: incompatible implicit declaration of built-in function 'exit' [-Wbuiltin-declaration-mismatch]
+  999 | if (XOR (islower (i), ISLOWER (i)) || toupper (i) != TOUPPER (i)) exit(2);
+      |                                                                   ^~~~
+configure:999:67: note: include '<stdlib.h>' or provide a declaration of 'exit'
+configure:1000:1: warning: incompatible implicit declaration of built-in function 'exit' [-Wbuiltin-declaration-mismatch]
+ 1000 | exit (0); }
+      | ^~~~
+configure:1000:1: note: include '<stdlib.h>' or provide a declaration of 'exit'
+configure:1028: checking for working const
+configure:1082: gcc -c -g -O2  conftest.c 1>&5
+configure:1103: checking for inline
+configure:1117: gcc -c -g -O2  conftest.c 1>&5
+configure:1113:10: warning: return type defaults to 'int' [-Wimplicit-int]
+ 1113 | } $ac_kw foo() {
+      |          ^~~
+configure:1143: checking for off_t
+configure:1176: checking for size_t
+configure:1211: checking for working alloca.h
+configure:1223: gcc -o conftest -g -O2   conftest.c  1>&5
+configure:1244: checking for alloca
+configure:1272: gcc -o conftest -g -O2   conftest.c  1>&5
+configure:1441: checking for unistd.h
+configure:1451: gcc -E  conftest.c >/dev/null 2>conftest.out
+configure:1480: checking for getpagesize
+configure:1508: gcc -o conftest -g -O2   conftest.c  1>&5
+configure:1533: checking for working mmap
+configure:1681: gcc -o conftest -g -O2   conftest.c  1>&5
+configure:1612:7: warning: conflicting types for built-in function 'malloc'; expected 'void *(long unsigned int)' [-Wbuiltin-declaration-mismatch]
+ 1612 | char *malloc();
+      |       ^~~~~~
+configure:1567:1: note: 'malloc' is declared in header '<stdlib.h>'
+ 1566 | #include <sys/mman.h>
+  +++ |+#include <stdlib.h>
+ 1567 | 
+configure: In function 'main':
+configure:1622:20: warning: implicit declaration of function 'getpagesize' [-Wimplicit-function-declaration]
+ 1622 |         pagesize = getpagesize();
+      |                    ^~~~~~~~~~~
+configure:1629:17: warning: implicit declaration of function 'exit' [-Wimplicit-function-declaration]
+ 1629 |                 exit(1);
+      |                 ^~~~
+configure:1629:17: note: include '<stdlib.h>' or provide a declaration of 'exit'
+configure:1629:17: warning: incompatible implicit declaration of built-in function 'exit' [-Wbuiltin-declaration-mismatch]
+configure:1629:17: note: include '<stdlib.h>' or provide a declaration of 'exit'
+configure:1631:31: warning: implicit declaration of function 'rand' [-Wimplicit-function-declaration]
+ 1631 |                 *(data + i) = rand();
+      |                               ^~~~
+configure:1632:9: warning: implicit declaration of function 'umask' [-Wimplicit-function-declaration]
+ 1632 |         umask(0);
+      |         ^~~~~
+configure:1635:17: warning: incompatible implicit declaration of built-in function 'exit' [-Wbuiltin-declaration-mismatch]
+ 1635 |                 exit(1);
+      |                 ^~~~
+configure:1635:17: note: include '<stdlib.h>' or provide a declaration of 'exit'
+configure:1636:13: warning: implicit declaration of function 'write' [-Wimplicit-function-declaration]
+ 1636 |         if (write(fd, data, pagesize) != pagesize)
+      |             ^~~~~
+configure:1637:17: warning: incompatible implicit declaration of built-in function 'exit' [-Wbuiltin-declaration-mismatch]
+ 1637 |                 exit(1);
+      |                 ^~~~
+configure:1637:17: note: include '<stdlib.h>' or provide a declaration of 'exit'
+configure:1638:9: warning: implicit declaration of function 'close' [-Wimplicit-function-declaration]
+ 1638 |         close(fd);
+      |         ^~~~~
+configure:1647:17: warning: incompatible implicit declaration of built-in function 'exit' [-Wbuiltin-declaration-mismatch]
+ 1647 |                 exit(1);
+      |                 ^~~~
+configure:1647:17: note: include '<stdlib.h>' or provide a declaration of 'exit'
+configure:1650:17: warning: incompatible implicit declaration of built-in function 'exit' [-Wbuiltin-declaration-mismatch]
+ 1650 |                 exit(1);
+      |                 ^~~~
+configure:1650:17: note: include '<stdlib.h>' or provide a declaration of 'exit'
+configure:1651:31: warning: cast from pointer to integer of different size [-Wpointer-to-int-cast]
+ 1651 |         data2 += (pagesize - ((int) data2 & (pagesize - 1))) & (pagesize - 1);
+      |                               ^
+configure:1654:17: warning: incompatible implicit declaration of built-in function 'exit' [-Wbuiltin-declaration-mismatch]
+ 1654 |                 exit(1);
+      |                 ^~~~
+configure:1654:17: note: include '<stdlib.h>' or provide a declaration of 'exit'
+configure:1657:25: warning: incompatible implicit declaration of built-in function 'exit' [-Wbuiltin-declaration-mismatch]
+ 1657 |                         exit(1);
+      |                         ^~~~
+configure:1657:25: note: include '<stdlib.h>' or provide a declaration of 'exit'
+configure:1668:17: warning: incompatible implicit declaration of built-in function 'exit' [-Wbuiltin-declaration-mismatch]
+ 1668 |                 exit(1);
+      |                 ^~~~
+configure:1668:17: note: include '<stdlib.h>' or provide a declaration of 'exit'
+configure:1669:13: warning: implicit declaration of function 'read' [-Wimplicit-function-declaration]
+ 1669 |         if (read(fd, data3, pagesize) != pagesize)
+      |             ^~~~
+configure:1670:17: warning: incompatible implicit declaration of built-in function 'exit' [-Wbuiltin-declaration-mismatch]
+ 1670 |                 exit(1);
+      |                 ^~~~
+configure:1670:17: note: include '<stdlib.h>' or provide a declaration of 'exit'
+configure:1673:25: warning: incompatible implicit declaration of built-in function 'exit' [-Wbuiltin-declaration-mismatch]
+ 1673 |                         exit(1);
+      |                         ^~~~
+configure:1673:25: note: include '<stdlib.h>' or provide a declaration of 'exit'
+configure:1675:9: warning: implicit declaration of function 'unlink' [-Wimplicit-function-declaration]
+ 1675 |         unlink("conftestmmap");
+      |         ^~~~~~
+configure:1676:9: warning: incompatible implicit declaration of built-in function 'exit' [-Wbuiltin-declaration-mismatch]
+ 1676 |         exit(0);
+      |         ^~~~
+configure:1676:9: note: include '<stdlib.h>' or provide a declaration of 'exit'
+configure:1709: checking for argz.h
+configure:1719: gcc -E  conftest.c >/dev/null 2>conftest.out
+configure:1709: checking for limits.h
+configure:1719: gcc -E  conftest.c >/dev/null 2>conftest.out
+configure:1709: checking for locale.h
+configure:1719: gcc -E  conftest.c >/dev/null 2>conftest.out
+configure:1709: checking for nl_types.h
+configure:1719: gcc -E  conftest.c >/dev/null 2>conftest.out
+configure:1709: checking for malloc.h
+configure:1719: gcc -E  conftest.c >/dev/null 2>conftest.out
+configure:1709: checking for string.h
+configure:1719: gcc -E  conftest.c >/dev/null 2>conftest.out
+configure:1709: checking for unistd.h
+configure:1709: checking for values.h
+configure:1719: gcc -E  conftest.c >/dev/null 2>conftest.out
+configure:1709: checking for sys/param.h
+configure:1719: gcc -E  conftest.c >/dev/null 2>conftest.out
+configure:1749: checking for getcwd
+configure:1777: gcc -o conftest -g -O2   conftest.c  1>&5
+configure:1749: checking for munmap
+configure:1777: gcc -o conftest -g -O2   conftest.c  1>&5
+configure:1749: checking for putenv
+configure:1777: gcc -o conftest -g -O2   conftest.c  1>&5
+configure:1749: checking for setenv
+configure:1777: gcc -o conftest -g -O2   conftest.c  1>&5
+configure:1749: checking for setlocale
+configure:1777: gcc -o conftest -g -O2   conftest.c  1>&5
+configure:1749: checking for strchr
+configure:1777: gcc -o conftest -g -O2   conftest.c  1>&5
+configure:1761:6: warning: conflicting types for built-in function 'strchr'; expected 'char *(const char *, int)' [-Wbuiltin-declaration-mismatch]
+ 1761 | char $ac_func();
+      |      ^~~~~~
+configure:1758:1: note: 'strchr' is declared in header '<string.h>'
+ 1757 | #include <assert.h>
+  +++ |+#include <string.h>
+ 1758 | /* Override any gcc2 internal prototype to avoid an error.  */
+configure:1749: checking for strcasecmp
+configure:1777: gcc -o conftest -g -O2   conftest.c  1>&5
+configure:1761:6: warning: conflicting types for built-in function 'strcasecmp'; expected 'int(const char *, const char *)' [-Wbuiltin-declaration-mismatch]
+ 1761 | char $ac_func();
+      |      ^~~~~~~~~~
+configure:1749: checking for __argz_count
+configure:1777: gcc -o conftest -g -O2   conftest.c  1>&5
+configure:1749: checking for __argz_stringify
+configure:1777: gcc -o conftest -g -O2   conftest.c  1>&5
+configure:1749: checking for __argz_next
+configure:1777: gcc -o conftest -g -O2   conftest.c  1>&5
+configure:1806: checking for stpcpy
+configure:1834: gcc -o conftest -g -O2   conftest.c  1>&5
+configure:1818:6: warning: conflicting types for built-in function 'stpcpy'; expected 'char *(char *, const char *)' [-Wbuiltin-declaration-mismatch]
+ 1818 | char $ac_func();
+      |      ^~~~~~
+configure:1868: checking for LC_MESSAGES
+configure:1880: gcc -o conftest -g -O2   conftest.c  1>&5
+configure:1901: checking whether NLS is requested
+configure:1921: checking whether included gettext is requested
+configure:1940: checking for libintl.h
+configure:1950: gcc -E  conftest.c >/dev/null 2>conftest.out
+configure:1967: checking for gettext in libc
+configure:1979: gcc -o conftest -g -O2   conftest.c  1>&5
+configure: In function 'main':
+configure:1975:8: warning: cast from pointer to integer of different size [-Wpointer-to-int-cast]
+ 1975 | return (int) gettext ("")
+      |        ^
+configure:2070: checking for msgfmt
+configure:2104: checking for dcgettext
+configure:2132: gcc -o conftest -g -O2   conftest.c  1>&5
+configure:2116:6: warning: conflicting types for built-in function 'dcgettext'; expected 'char *(const char *, const char *, int)' [-Wbuiltin-declaration-mismatch]
+ 2116 | char $ac_func();
+      |      ^~~~~~~~~
+configure:2159: checking for gmsgfmt
+configure:2194: checking for xgettext
+configure:2234: gcc -o conftest -g -O2   conftest.c  1>&5

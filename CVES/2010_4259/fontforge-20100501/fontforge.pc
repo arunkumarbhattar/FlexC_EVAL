@@ -1,0 +1,6 @@
+prefix=/home/arun/Desktop/CVES/2010_4259/fontforge-20100501/install
+exec_prefix=${prefix}
+
+Name: FontForge
+Description: Outline font editor.
+Version: 20100501
