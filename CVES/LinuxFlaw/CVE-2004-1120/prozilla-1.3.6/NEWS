@@ -1,0 +1,324 @@
+Changes in the latest CVS version
+---------------------------------
+Fixed the bug where a http download where the sizwe was not known would not
+work, it was a typo in the code :(
+Replaced strtok with the recursive equivalents strtok_r.
+________________________________________________________________________
+Added the Referer Tag for HTTP.
+
+Periodically (every 5 minutes) tries to loggin to the ftp server, to see
+whether a user has disconnected and whether it can take advantage of it ;)
+
+Now checks and warns about free diskspace before rebuilding the file. 
+
+Changes in ver 1.3.3.2
+------------------------
+Added backup ftpsearch servers, so that if lycos changes its ftpsearch
+location again, we have a backup ftpsearch server to fall back upon.
+
+Changed Makefile.am and now additional targets were added, namely "dist",
+and "rpm", which enable one to make a distribution tarball or a rpm easily.
+
+Changes in ver 1.3.3.1
+------------------------
+Richards patch was applied which makes prozilla now read the proper
+sysconfdir/prozilla.conf.
+
+Michaels patch which corrected overscrolling in the ncurses interface was
+applied.
+
+Changes in ver 1.3.3
+------------------------
+Lycos changed their ftpsearch url from ftpsearch.lycos.com to another
+location which broke prozillas ftpsearch ability, I have fixed that, and
+also added a directive to the prozrc.sample file as,
+#ftpsearchurl = http://download.lycos.com/swadv/AdvResults.asp  
+which should enable anyone to change the location if lycos decides to try
+the same stunt in the future without having to recompile prozilla.
+
+The directory where the output files are stored can be specified via the
+config file or with the command line switches -P or --directory-prefix
+
+Bandwith throttling is now supported.
+
+Fixed the .netrc being not utilised properly.
+
+Cleaned up several ncurses specific napms functions and replaced them with
+delay_ms function defined in misc.c, in order to plan for the library.
+
+Cleaned up references to strdup and replaced the with nstrdup 
+
+Applied Uwe's patches  which corrected spelling mistakes in the man pages
+and the documentation. 
+
+Michaels patch which simplified the code was added.
+
+Updated the manpages with regard to the contributors.
+
+Changes in ver 1.3.2
+------------------------
+Fixed a bug related to the download speed.
+Man page was updated.
+Replaced the gethostbyname with gethostbyname_r (reentrancy problems)
+You can switch to different servers among the ftpsearch returned results,
+while downloading if you are not satisfied with the results. 
+The file rebuilding progress is now displayed as a percentage.
+Added pthread cleanup handlers.
+Added several more options to the config file.
+Switch -s is a alias for --ftpsearch, thus simplyfying things up.
+Modified the example config file prozrc.sample slightly and added other
+options to it. 
+Changed the README as to add more information about the new functionality.
+Updated the FAQ with how to install the config file.
+Ralph fixed a couple of errors.
+Moved the functions which setup the runtime environment to init.c 
+
+Changes in ver 1.3.1-pl1
+-----------------------
+Thanks to Flower prozilla is now able to support a config file, a example
+of the config file is found as prozrc.sample.
+Now the user can select any server from the ftpsearch results by pressing
+enter, or if the pinging is taking too long he can abort with CTRL+A and
+the fastest server found till then will be used, otherwise one the ping is
+completed the fastest server will be used automatically , which is what
+happens as default. 
+Recorganised the ftpsearch.c file.
+The man page proz.1 is symlinked now.
+
+
+
+Changes in ver 1.3.1
+-----------------------
+Now ftpsearch is off by default, specify the --ftpsearch option to enable.
+Flowers mutithreaded ping added, pings by default 3 (changable with the
+--pao switch) servers at a time.
+Added --pt, --pao, and --max-ftps-servers switches.
+Display added to show the status of the pinging.
+The ping code was improved and I fixed a bug in it too which led to
+incorrect results.
+Uwe's patches to 1.06 are included.
+Now if a server does not support resume, and a user specifies the -r
+switch, will warn the user and attempt the download from the start,
+instead of exiting.
+
+Changes in ver 1.3.0
+-----------------------
+Added ftpsearch support.
+Added a --no-ftpsearch switch. 
+
+Changes in ver 1.06
+-----------------------
+A FTP downloading problem with Older versions of Wu-FTP servers which got 
+uncovered because of the recent use of the PASV command was fixed.
+Added a --debug option for dumping debug info if necessary.
+Now the counter displays in the format like "230K of 680 bytes received". 
+The ftp code was improved to correctly handle badly behaced servers who
+sometimes reject the connection attempt without a valid return code.
+Redirections from a http server to a ftp server were not supported, now it
+is supported. 
+Increased the number of attempts at retrying if a error occurs to 200 from
+20, and increaed the retry delay between attempts to 15.
+
+Changes in ver 1.06pre1 
+----------------------- 
+Added HTTP basic authentication.
+Now we use PASV by default for FTP transactions since using PORT caused
+problems when run behind certain ip masq setups.
+ A bug which occured when files less that 7 byets in size were downloaded
+using the http protocol was fixed.
+The screen drawing routine was changed so that the occasinal screen
+corruption should not occur.
+Corrected a problem where the debug.log appeared in the normal download.
+THE HTTP and FTP single threaded downloads error recovery was improved. 
+The --use-pasv was removed since PASV is used by default and the
+--use-port option was added so that anyone can force the PORT command to
+be used rather than the PASV.
+A man page for prozilla was added to the distribution.
+
+
+Changes in ver 1.06pre0
+-----------------------
+A very important condition which caused prozilla to prematurely end a
+download due to problematic servers has been fixed. Now prozilla ignores
+the servers end of data, if it does not agree with the number of bytes to
+download. So it will reconnect and continue downloading from where it was
+interrupted.
+
+Changes in ver 1.05pl1
+--------------------
+I am now checking for exceptional conditions in connect.c to see whether
+it helps to clear up the strange bug that is hapenning. Experimenting with
+setting the TCP_NODELAY flag to see whether it improves the speed. Changed
+the timeout to 180 seconds, on Rich's suggestion...
+
+
+Changes in ver 1.05
+--------------------
+A bug in the http code related to whether a server supports resume or not
+was found and fixed.
+A bug with the relaunching of ftp cconections when a connection attempt 
+was rejected due to a maximum number of allowed ip addreses was fixed.
+The time interval between retries was changed to 25 seconds
+
+ 
+Changes in ver 1.04e
+--------------------
+A bug where ProZilla still connected to port 21 when a url in the form of
+ftp://server:234/pub/xxxx was specified, was fixed.
+
+Changes in ver 1.04d 
+-------------------- 
+The handling of a situtation where a ftp server disallows more than a
+certain number of connections per ip address has been improved. 
+
+A new option --no-getch was added, where when a error occurs ProZilla will
+print the error and quit right away rather than waiting for a keypress
+from the user, which is the default behaviour.
+
+Fixed a bug where a wrong error message was reported. 
+
+Changes in ver 1.04c
+-------------------_
+When the connection times out during connecting a more detailed error
+message is displayed. 
+
+A bug with regard to retrying the thread when the login is denied by the
+ftp server was fixed.
+
+Changes in ver 1.04b
+-------------------
+Stability and recovery is improved a lot especially with error prone 
+connections.
+
+It now retrys any failed connections until it is succesful or until the
+maximum number of trys (default 20) are reached, which is changeble.
+
+Added commandline chagable options related to connections which are,
+--timeout and --tries and --retry-delay.
+A bug in the percent indicator which appeared for large files was fixed. 
+
+Changes in ver 1.01
+-------------------
+The ftp-parse files were added which further improves and cleaned up
+several bugs in the FTP code which were reported by Flower
+<floweros@golia.ro>.
+
+The user can specify the number of connections to make via the -k= switch.
+
+If the number of connections are greater than those displayable, the user
+can browse through them by using the UP and DOWN Arrow keys.
+
+The HTTP code is more robust and supports other ports than the default http
+port too.
+
+The ProZilla FAQ was added.
+
+More detailed error reports
+
+Changes in ver 0.99.9.5
+-----------------------
+Added a more thorough output to ftp-retr.c message statement.
+
+Added the use_pasv to the runtime structure which makes it easy to specify
+whether to use PORT or PASV as the default method
+
+Using PORT as default from now.
+
+Changes in ver 0.99.9.4
+-----------------------
+Added the IPTOS_THROUGHPUT to further increase the speed of the downloads.
+
+Fixed a problem with the incompatibilities between ncurses versions 4.x and
+5.x.
+
+Also included a header which was causing compilation problems.
+
+Changes in ver 0.99.9
+-----------------------
+The download rate is at it's most accurate now..Dammit I am not good at
+maths...:(
+
+The FTP threads now support downloading even when a ftp server rejects the
+initial connection...the F**s...
+
+Support for the .netrc file added.
+
+Organized the runtime options to a structure and made things more organized.
+
+Added display of CTR-L 
+
+Changes in ver 0.99.8.1
+-----------------------
+Now the size of a ftp file is figured out by the SIZE command  
+
+Fixed a problem with the display when resuming.
+
+Organized the code on to ftp-retr.c and http-retr.c 
+
+Added support for printing the version
+
+The download rate is computed more accurately now...
+
+A bug when PASV is not supported by the ftp server is fixed
+
+Changes in ver 0.99.8
+---------------------
+FTP now starts with PASV as the first choice and reverts back to using
+PORT, if it PASV fails.
+
+Changed a minor error with the assert statements.
+
+Changed the appearance of the code.
+
+Removed a unnecessary close statement.
+
+Fixed a bug related to the accept_ranges header
+
+CTRL-L now refreshes the ncurses screen...
+
+Prozilla now checks for previously downloaded file portions and prompts
+the user whether he would like to resume the previous download etc. It
+does not do this check when started in resume mode as this would be
+redundant.
+
+Changes In ver 0.99.7
+--------------------
+Prozilla now prompts the user about overwriting files, thus if gnu.jpg is
+requested and gnu.jpg also exits in the same directory, The user will be
+prompted. This check can be disabled by using the --force or -f options,
+then the files are overwritten without prompting the user. Thanks to Rich
+<richdawe@bigfoot.com> for  suggesting it.
+
+The GTK display now displays in Kb/sec thanks to Wilmer for the change.
+
+Changes in ver 0.99.6
+---------------------
+Richard Dawe's gproz script and several spelling related diffs (also by
+him) were included.
+
+
+Changes in ver 0.99.4 from 0.99.3.2
+-----------------------------------
+When resuming, the bytes/sec value computed is now correct.
+
+Modified the gtk display and the curses display to display the correct
+value. 
+
+Changes in ver 0.993.2 from 0.99.3
+----------------------------------
+The name of the executable is now prz 
+
+The dax.c and dax.h were changed to main.c and main.h respectively.
+
+Calls to the message function containing '/n' were converted to without
+the newline because this tended to mess the gtk display.
+
+Changes in ver 0.99.3 from 0.99.2
+---------------------------------
+Changed the socket options set in connect.c
+
+The situation where a FTP server doesn't allow more than one or n
+connections is detected and handled appropriately (the  **!! servers)
+
+Curses display changed a bit.. 
+
