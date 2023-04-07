@@ -1,0 +1,6 @@
+arun@arun-GL65-Leopard-10SEK ~/D/F/C/L/E/fcrackzip-1.0 (main) [1]> ./fcrackzip -p (python3 -c 'print("A"*440)') file.zip
+*** buffer overflow detected ***: terminated
+fish: Job 1, './fcrackzip -p (python3 -c 'pri…' terminated by signal SIGABRT (Abort)
+arun@arun-GL65-Leopard-10SEK ~/D/F/C/L/E/fcrackzip-1.0 (main) [SIGABRT]> 
+
+
