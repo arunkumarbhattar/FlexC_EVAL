@@ -1,0 +1,152 @@
+.TH PROZILLA 1 "May 30, 2001"
+.SH "NAME"
+.LP
+\fBProZilla\fR \- a download accelerator for GNU/Linux
+.SH "SYNTAX"
+.B proz
+[OPTIONS] <URL>
+.SH "DESCRIPTION"
+\fBProZilla\fP is a program that makes multiple connections and downloads
+a file in multiple parts simultaneously thus enhancing the download speed
+and downloading the file faster than a download with a single connection.
+.PP
+ProZilla is also able to do ftp searches for other possible sites that contain
+the same file, ping them for connection speeds and automatically download
+from the fastest site, or ask the user to choose one.
+.PP
+FTP passwords can be specified with the URL, or can be
+obtained automatically from
+.B "~/.netrc"
+if it exists.
+.SH "OPTIONS"
+.TP
+.B \-r
+Resume an interrupted download
+.TP
+.B \-f, \-\-force
+Never prompt the user when overwriting files
+.TP
+.B \-1
+Force a single connection only
+.TP
+.B \-s,  \-\-ftpsearch
+Invokes prozilla to do a ftp search for other sites
+.TP
+.B \-n, \-\-no\-netrc
+Don't use ~/.netrc, get the user/password from the command line, otherwise
+use the anonymous login FTP sessions
+.TP
+.B \-L, \-\-license
+Display software license
+.TP
+.B \-h, \-\-help
+Give some help
+.TP
+.B \-v, \-\-version
+Display version number
+.SH "FTP OPTIONS"
+.TP
+.B \-\-use\-port
+Force usage of PORT instead of PASV (default) for ftp transactions
+.TP
+.B \-s \-\-ftpsearch
+Invokes prozilla to do a ftp search for other sites
+.SH "DOWNLOAD OPTIONS"
+.TP
+.B \-k=n
+Use n connections instead of the default (4)
+.TP
+.B \-\-timeout=n
+Set the timeout for connections to n seconds (default 180)
+.TP
+.B \-t, \-\-tries=n
+Set number of attempts to n (default (30), 0=unlimited)
+.TP
+.B \-\-retry\-delay=n
+Set the time between retries to n seconds (default 10 seconds)
+.SH "EXAMPLES"
+.TP
+.B proz <URL>
+ProZilla will connect to that server and download the file using the default
+settings
+.TP
+.B proz \-1 <URL>
+ProZilla will connect and download the file in 1 part only
+.TP
+.B proz \-s <URL>
+invokes ftpsearch and will download from the fastest server or a user\-chosen
+site
+.TP
+.B proz \-s \-k=10 <URL>
+invokes ftpsearch and will download from the fastest server or a user\-chosen site using 10 connections
+.SH "FILES"
+.TP
+.B "/etc/prozilla.conf"
+The global configfile
+.TP
+.B "~/.prozrc"
+The per-user configfile
+.TP
+.B "~/.netrc"
+A file which can be used to provide prozilla with hosts, accounts and
+passwords
+.SH "ENVIRONMENT"
+.TP
+.B "PROZRC"
+The location of the .prozrc per-user configfile.
+.SH "BUGS"
+Please report bugs to <prozilla@delrom.ro>
+.SH "AUTHOR"
+Kalum Somaratna <kalum@delrom.ro>
+.PP
+.B "Several contributions come from:"
+.br
+Richard Dawe <richdawe@bigfoot.com>
+.br
+Lourens Veen <jsr@dds.nl>
+.br
+Flower <floweros@golia.ro>
+.br
+D. J. Bernstein <djb@pobox.com>
+.br
+Biscuit <biscut@biscut.screaming.net>
+.br
+Hrvoje Niksic <hniksic@srce.hr>
+.br
+Silviu Marin-Caea <silviu@delrom.ro>
+.br
+Ralph Slooten <axllent@axllent.cjb.net>
+.br
+Tse Chi Ming <minix@hongkong.com>
+.br
+Gustavo Noronha Silva <dockov@zaz.com.br>
+.br
+Calum Selkirk <cselkirk@sophix.uklinux.net>
+.br
+Seth Cohn <scohn@oregonmed.net>
+.br
+Davy Durham <david.durham@wcom.com>
+.br
+Uwe Hermann <uh1763@hermann-uwe.de>
+.br
+Drew <drew@no6.com>
+.br
+Andy Jeffries <andy@scramdisk.eu.org>
+.br
+Guillermo Pereyra Irujo <gpirujo@pop3free.com>
+.br
+Michael Duelli <m.duelli@web.de>
+.br
+Steven Hatfield <ashari@knightswood.net>
+.PP
+.B "Manpage:"
+.br
+Ralph Slooten <axllent@axllent.cjb.net>
+.br
+Flower <floweros@golia.ro>
+.br
+Gustavo Noronha Silva <dockov@zaz.com.br>
+.br
+Uwe Hermann <uh1763@hermann-uwe.de>
+.SH "SEE ALSO"
+\fIHomepage:\fR   http://prozilla.delrom.ro/

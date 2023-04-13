@@ -1,0 +1,12 @@
+	        ProZilla The Download Accelerator For Linux
+                ===========================================
+
+ProZilla is a download accelerator for Linux which supports both HTTP and
+FTP protocols. ProZilla makes multiple connections to the server and
+downloads the file in portions thus defeating existing Internet congestion
+prevention methods which slow down the conventional single connection
+based downloads, so providing you with the best possible download speed
+your bandwidth supports. Improvements of 200% are easily achievable using
+ProZilla. Resuming too is fully supported.
+
+Kalum Somaratna (Grendel) <grendel@lintux.cx>

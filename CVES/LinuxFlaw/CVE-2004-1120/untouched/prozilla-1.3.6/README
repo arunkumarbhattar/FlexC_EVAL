@@ -1,0 +1,143 @@
+		ProZilla the Download Accelerator for Linux
+                                  v1.3.6
+                ============================================
+
+Welcome, gentle reader.
+
+ProZilla is a download accelerator for Linux which gives you a 200% to 300%
+improvement in your file downloading speeds.
+ 
+Features:
+Supports FTP
+Supports HTTP including redirection. 
+Resume Supported.
+Complete acceleration: The file will be downloaded as fast as possible as
+your bandwidth allows. 
+Unlike certain other download accelerators available for Linux this really
+works.
+FTP passwords can be specified with the URL, or can be obtained
+automatically from the .netrc if it exists.
+The number of connections that prozilla uses can be specified using the -k
+option (4 by default).
+
+*** New Features ***
+
+*** FTPsearch support now permits fetching Mirror locations and pinging
+them and selecting the fastest server is automatically done, to do this
+specify the -s option.
+
+*** The bandwidth can be limited using the --max-bps switch or from the
+config file. For example when run with say --max-bps=20000 prozilla will
+no exceed 20Kbps for the complete download. By default this is set to 0
+which means no throttling, use unlimited bandwidth if necessary.
+
+*** Configuration files (~/.prozrc or /etc/prozilla.conf) are supported
+thanks to Flower, please see the sample prozrc.sample file for a example
+on how to create a custom config file whose options would be used by
+prozilla for each session.
+
+
+1. Configuring
+--------------
+Please type,
+./configure
+from the ProZilla directory to configure the package.
+
+Typing ./configure --help, will show you the various options that you can
+use to change the configuration process.
+
+For example if you have the gtk toolkit installed, but you don't wish for
+gtk support to be compiled in, you can do so by specifying,
+./configure --without-gtk
+
+Please note that you have to have the pthread library and (n)curses
+installed for you to compile the program. The gtk library is optional and
+if found support for the gtk front end will also be added.
+
+2. Make
+-------
+Once the configuration process is finished, please type
+make
+to start the compilation of the package.
+
+3. Installing
+-------------
+If the make process was successful, then you can install it by typing
+make install
+which will install the binaries in the /usr/local/bin directory by default.
+If you wish another directory, you can change this with the --prefix option
+supplied to configure.
+
+If you wish that the binaries be stripped too (reduces the size), please
+type
+make install-strip
+
+
+4. Running
+----------
+Running:
+The syntax will be,
+proz <URL>
+where URL is the file you wish to download.
+
+For example,
+proz  ftp://gnu.org/pub/README
+will connect to to the server gnu.org and start the download of the file
+README from the pub directory.
+
+ProZilla by default uses 4 connections but you can change it with the -k=
+option. If for example you want to try with 7 connections, you would type
+'proz URL -k=7'.
+
+***NOTE***:
+FTPSearch support is now added but off by default, so to enable it, please
+run with the -s switch, you can select from the list of servers displayed
+too if you wish.
+
+If you want ProZilla to use a different username or password for ftp sessions,
+than the default anonymous login, you can specify it in the command line, or
+if you have a .netrc file, it will automatically select the appropriate
+username password combination for the particular host, otherwise it will use
+the default anonymous login.
+
+If you don't want it to use the .netrc password, you can force it to either
+use a user/password supplied on the URL or else use the anonymous login, by
+the "--no-netrc" or "-n" options,
+
+By default ProZilla will prompt you before overwriting any files, however
+it will not prompt you if run with the -f or --force options should you wish
+to do so.
+
+NOTE: As of ProZilla v1.06pre1, ProZilla now uses PASV as the default. If
+you are uncomfortable with this, or encounter problems, you can force ProZilla
+to use PORT using the --use-port option
+
+
+
+A small note
+------------
+ProZilla was written by Kalum Somaratana (aka Grendel) <kalum@delrom.ro> For the complete list
+of the people who were kind enough to contribute to ProZilla please read
+the CREDITS file and the AUTHORS file.
+
+It was written to fulfill the need of a good quality download accelerator
+for Linux, which would allow users (especially the people with slow dialup
+connections) to download files as fast as possible as their connection
+would allow. 
+
+For Windoze users there already existed a good download accelerator but
+for Linux users unfortunately there wasn't much of a choice, and we hope
+that ProZilla will improve that situation considerably.
+
+Although we have taken great pains to test this application extensively,
+there probably may be a few bugs :(, since this is the first major
+release. However if you come across them we kindly request you to inform
+us <prozilla@delrom.ro> and we will make sure that they will be removed
+from the next release.
+
+We sincerely hope that you will like the download accelerator..
+Enjoy!
+
+Kalum Somaratana (Grendel) <kalum@delrom.ro>
+
+

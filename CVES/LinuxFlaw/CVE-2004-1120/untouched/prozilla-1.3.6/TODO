@@ -1,0 +1,40 @@
+Add proxy support
+DONE: Add ftpsearch support
+Add digest authentication to http
+Porting to other platforms
+
+DONE by Flower: Add Ralph's suggestion for a config file.
+DONE by Flower: Try to symlink the prozilla man file.
+DONE by Grende: lAdd Bandwidth throttling as suggested by Andy Jeffries
+
+1. Add internationalisation support (and get as many .po files as
+possible)
+
+2. Make X interface to work again w/ the new options implemented. If you
+are good at GTK, QT, Tcl/Tk or whatever please help.
+
+3. Modifiable number of threads while download is in progress.
+
+4. Reutilisation of threads. If a thread finished the download it may
+*help* other slower threads by getting a part of the remains.
+
+5. Support for more ftpsearch sites, configurable by user.
+filez.com, www.filesearch.ru, www.ftpsearch.de and many, many others
+since users may have faster searchers near them.
+
+6. Support for custom headers in HTTP (eventually cookies)
+
+7. enable downloading files to a user specified directory
+8. regexp  support
+
+9. Flower :And also a TEMP_DIR? For those who dl large files but don;t
+have enough space in one partition.
+
+10. Uwe: IMHO prozilla should read the environment variables TMPDIR, TMP,
+and TEMP. If none of those are defined it should use /tmp.
+
+11.  replace calls to sprintf with snprintf
+12. Remove DJB's parsing codes and replac with our own
+13. Experiment about adding Lara Young's <lara_hack@gmx.co.uk> suggestions
+about downloading to a single thread
+

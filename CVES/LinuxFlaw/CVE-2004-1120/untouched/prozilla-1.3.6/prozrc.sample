@@ -1,0 +1,102 @@
+# Prozilla rc file.
+# Any line beginning w/ a "#" is a comment
+# Empty lines are ignored
+
+# This will generate a file named debug.log
+# If you want to report a bug please also send the file debug.log.
+#
+#debug=off
+
+# How many connections prozilla will make.
+# This greatly depends on your bandwidth.
+# Recommended values:
+# 33k: dunno, tell us what you find to be the best
+# 56-64k: dunno, tell us what you find to be the best
+# Cable: dunno, tell us what you find to be the best
+# DSL: dunno, tell us what you find to be the best
+# Subspatial Transmissions: dunno, tell us if you have this ;)
+# 
+#threads = 4
+
+# How many servers will we ping at once
+# Recommended values...
+# 
+pingatonce = 5 
+
+
+# Wait 2*n seconds for a server response (default 2*4)
+pingtimeout = 4
+
+# The next option is a very nice thing. Just set it on ;)
+# BTW, it's still under test. If you find bugs please report
+# them at <prozilla@delrom.ro>
+# 
+# Patches are greatly appreciated.
+#ftpsearch = ON
+
+#The next line spcifies the server to use for the ftpsearch
+# lycos changed it from ftpsearch.lycos com to the following 
+#
+#ftpsearchurl = http://download.lycos.com/swadv/AdvResults.asp 
+#ftpsearchurl = http://ftpsearch.uniovi.es:8000/ftpsearch
+
+# How many mirrors we will request from ftpsearch.
+# This option only make sense w/ ftpsearch ON
+#
+#mirrors = 40
+
+# The timeout period
+# How long do we wait when there is no response before starting again
+#
+#timeout = 180
+
+# How many attempts do we make when we encounter a data transmission error
+# to get the file in (default is 200), specify 0 to try infinitely  
+#
+#tries = 200
+
+#The timedelay between retries. (default 15 seconds)
+#
+#retrydelay = 15
+
+# The force option, off by default. When enabled cause Prozilla NOT
+# to prompt the user about overwriting existent files etc..
+# 
+#forcemode = off
+
+# Maximum redirections allowed
+# 
+#maxredirs = 10
+
+# Use ~/.netrc? On by default
+# 
+#netrc = on
+
+# Uses PASV by default. If you don't like it set it OFF and will use PORT instead.
+# 
+#pasv = off
+
+# If you turn this option ON, when an error occurs, ProZilla will print the
+# error to stdout and quit instead of waiting for the user to press a key to
+# exit
+# 
+#nogetch = off
+
+#The maxbps option can be used to limit the bandwith consumption of
+# prozilla for example maxbps = 40000 will limit it to consume a maximum of
+# 40k of bandwith, the default is 0 which means unlimited bandwith
+# consumption (ie no limitation just get as fast as possible)
+#
+#maxbps = 0
+
+
+#mainoutputdir
+#This specifies to which directory the output file will be built
+#mainoutputdir = /home/weasel/downloads
+#Now if you download a file called gcc-2.95.2.tar.bz2 it will be saved as 
+#/home/weasel/downloads/gcc-2.95.2.tar.bz2
+#
+#mainoutputdir = .
+
+
+

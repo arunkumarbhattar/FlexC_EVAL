@@ -1,0 +1,347 @@
+2001-06-23    <kalum@delrom.ro>
+	* Improved url handling, url.c and url.h bought upto latest 
+	  version.
+	* Improved redirection support.
+	* Fixed a free space required bug.
+
+2001-06-23    <kalum@spartacus.grendel.net>
+
+        * src/connection.c: Fixed the free space required bug (hopefully)
+
+2001-06-20    <kalum@spartacus.grendel.net>
+
+	* src/debug.c: The debug.log file is deleted on each new run.
+
+2001-03-25    <kalum@spartacus.grendel.net>
+
+	* src/resume.c: Removed resume_get_stats(struct stat *buf, char *fname) from the curses.c file as it was superflous.
+
+	* src/curses.c (curses_exit_resume): Applied Michales patch which displays the burst time per one second of download.
+
+2001-03-18    <kalum@spartacus.grendel.net>
+
+	* src/connect.c (k_gethostname): Added this function to help with autoconf 
+
+	* src/main.c (main): Fixed a bug when the user slected a server if two servers had the same path names the wrong one would be selected.
+
+2001-03-16    <kalum@spartacus.grendel.net>
+
+	* src/main.c (help): Applied Michaels patch which cleaned up some typos in the help display
+
+2001-02-09    <kalum@spartacus.grendel.net>
+
+	* src/http-retr.c (http_loop): get the pthread_push functions workingin http_loop
+
+2001-02-07    <kalum@spartacus.grendel.net>
+
+	* src/ftp-retr.c (ftp_get_file_chunk): testing for cancelling
+
+2001-01-30    <kalum@spartacus.grendel.net>
+
+	* src/main.c (main): Now if the server does not support resums warn instead of quitting.
+
+2001-01-20  Grendel  <kalum@spartacus>
+
+	* src/main.c (main): if no servers are up what to do ??
+
+2001-01-14  Grendel  <kalum@spartacus>
+
+	* src/connect.h (ksend): added a timeout parameter to krecv and ksend and updated source files accordingly
+
+2001-01-13  Grendel  <kalum@spartacus>
+
+	* src/connect.h: added the timeout parameter  to connect_to_server
+
+2001-01-08  Grendel  <kalum@spartacus>
+
+	* src/main.c (set_defaults): now we use pasv by default
+
+	* src/http-retr.c (http_get_file_chunk): FTP_BUFFER_SIZE was replaced by HTTP_BUFFER_SIZE 
+
+2001-01-07  Grendel  <kalum@spartacus>
+
+	* src/connection.h: added file_size to it
+
+	* src/http-retr.c (http_get_complete_file): added
+		connection->status = REMOTEFATAL; which was missing
+
+2000-12-25  Grendel  <kalum@spartacus>
+
+	* src/main.c (set_defaults): changed the timeout to 180 seconds, on Rich's suggestion...
+	(set_defaults): Changed the time between retries to 10 seconds..
+
+2000-12-02  Grendel  <kalum@spartacus>
+
+	* src/connection.c (join_downloads): if only one connection has been used we can just rename the file
+
+2000-11-30  Grendel  <kalum@spartacus>
+
+	* src/connection.h: replaced the enum ALLDONE with the more terminologically correct COMPLETED, and updated all the source files accordingly 
+
+2000-11-24  Grendel  <kalum@spartacus>
+
+	* src/main.c (handle_threads): fixed a bug in the relaunching of ftp connections.
+
+2000-11-07  Grendel  <kalum@spartacus>
+
+	* src/main.c (handle_threads): pthread_create now runs ftp_loop instead of the ftp_get_ functions
+	
+2000-11-03  Grendel  <kalum@spartacus>
+
+	* src/main.c (main): Moving the check for the downloaded file before the processing of the logfile.
+2000-10-30  Grendel  <kalum@spartacus>
+
+	* src/resume.c (resume_modify_ftp_single_connection): small change in the totlbytes received section
+
+2000-10-14  Grendel  <kalum@spartacus>
+
+	* src/main.c: Now the testing for all the threads login failure is done at the individual thread level, if the thread and all the others have failed, then the thread should relaunch it self.....
+2000-10-09  Kalum  <kalum@goatbeard>
+
+	* src/ftp-retr.c (ftp_get_file_to_end): converted the functions so that they return uerr_t
+
+2000-09-29    <kalum@goatbeard.grendel.net>
+
+	* src/runtime.h (struct runtime): added retry_attempts and retry_delay
+
+2000-09-14    <kalum@goatbeard.grendel.net>
+
+	* src/http-retr.c (http_get_complete_file): ficed a bug, earlier prozilla used 80 as the default port for http, but now the port specified in the URL is used.
+
+2000-09-09    <kalum@goatbeard.grendel.net>
+
+	* src/main.c (handle_threads): If a connection fails due to local
+	or otherwise errors, retry it again after waiting for another
+	thread to terminate
+
+2000-09-08    <kalum@goatbeard.grendel.net>
+
+	* src/curses.c (curses_draw_display): chaging...
+
+	* src/ftp-retr.c (ftp_get_complete_file): renaming function to ftp_get_to_eof
+
+2000-09-07    <kalum@goatbeard.grendel.net>
+
+	* src/url.h: Added resume_supported to url.c structure
+
+2000-08-29    <kalum@goatbeard.grendel.net>
+
+	* src/connect.c (connect_to_server): changing the layout a bit
+
+2000-08-27    <kalum@goatbeard.grendel.net>
+
+	* src/main.c (set_defaults): changed the defaut use from PASV to PORT
+	
+
+	* src/runtime.h (struct runtime): added a use_pasv option.
+	(struct runtime): changed the mode member to run_mode which makes 
+	things more clearer
+
+2000-08-01    <kalum@roadrunner.grendel.net>
+
+	* src/curses.c (curses_draw_display): Added the display of ctrl-l
+	to repaint the screen.
+
+	* src/main.h (NETRC_FILE): added the definition for NETRC_FILE, ~/.netrc.
+
+	* src/options.h: Created a file called config.h which contains a
+	struct called options, which will be used to hold runtime information.
+	
+2000-07-31    <kalum@roadrunner.grendel.net>
+
+	* src/curses.c (curses_draw_display): Fixed a bug related to the
+	computation time of the download speed.
+
+2000-07-28    <kalum@roadrunner.grendel.net>
+
+	* src/main.h: added FTPSIZEFAIL and FTPUNKNOWNCMD
+
+2000-07-27    <kalum@roadrunner.grendel.net>
+
+	* src/connect.c (connect_to_server): changed bcopy to memcpy and
+	bzero to memset.
+
+	* src/main.c (query_overwrite_portions): this function now checks
+	for previously downloaded file portions and gives the user the
+	option of resuming it, aborting, or overwriting it...
+
+	* src/curses.c (curses_do_interface): if there is only 1
+	connection the CTRL-R will not be displayed..
+
+2000-07-26    <kalum@roadrunner.grendel.net>
+
+	* src/http.c (hgetaccept_ranges): fized a HTTP ranges related bug to take in to account old servers which don't send a "accept ranges" header. 
+
+2000-07-25    <kalum@roadrunner.grendel.net>
+
+	* src/main.c (query_overwrite): when the user says yes the file is
+        deleted
+
+	* src/ftp.c: adding ftp_pasv function
+	tested it out and it is ok..
+	(ftp_get_file_size): a unwanted "close(listen_sock)" was removed...
+
+2000-07-24    <kalum@roadrunner.grendel.net>
+
+	* src/main.h (DEFAULT_FTP_USER): 
+	added DEFAULT_FTP_USER and DEFAULT_FTP_PASSWD and modified the
+	code to accept them.
+
+2000-07-23    <kalum@roadrunner.grendel.net>
+
+	* src/gtk.c (window_update): Slightly modified Wilmers news gtk.c
+	file, I converted the variables from int's to floats. Now the gtk
+	frontend displays in Kb/sec. 
+	
+	* src/main.c (main): added support for checking before overwriting
+	a file...
+	Also added a option (-f, --force) to force ProZilla not to check
+	before overwriting
+
+2000-07-22    <kalum@roadrunner.grendel.net>
+
+	* src/ftp.c (ftp_get_line): do something about the
+	ftp_check_message funcnot returning anything about it's state
+	(ftp_get_line): done, checked the return value with a variable ret
+
+2000-07-21    <kalum@roadrunner.grendel.net>
+
+	* src/curses.c: Added the attribute A_BOLD to make the curses
+	display a bit more nice :)
+
+	* src/gtk.c (gtk_exit_resume): try to popup a message box when
+	ProZilla is terminated and asked to resume.
+	Added gtk_exit_* functions so that gtk specific code can be processed.
+
+	* src/curses.c (curses_exit_resume): used the terminate threads func to get cleaner code.
+
+	* src/gtk.c (btnAbort_click): getting the gtk interface to terminate.
+	
+
+2000-07-18    <kalum@roadrunner.grendel.net>
+
+	* src/curses.c: Applied Rich's patches which corrected several spelling mistakes.
+
+2000-07-16    <kalum@roadrunner.grendel.net>
+
+	* Found and fixed a  bug in the ftp code where the ftp server
+	doesn't CWD to the root directory. Fixed.
+
+	* curses.c (curses_draw_display): found a small typo and corrected it.
+
+2000-07-15    <kalum@roadrunner.grendel.net>
+
+	* gtk.c (window_update): made use of the
+	"connections[i].local_startpos" and made correct the bytes/sec
+	that is computed when you resume. 
+	
+	* curses.c (curses_draw_display): trying to use the
+	connection_data.local_startpos to enable accurate computation of
+	the download speed when resuming..DONE.
+
+	* connection.h: added the variable local_startpos, which will be
+	used to compute the bytes/sec in resume mode, and which contains
+	the the number of bytes that have been stored to the file for the
+	current connection, if there is no file (ie: you are downloading
+	fresh) then it will be zero.
+
+	* main.c (handle_threads): Chainged the error handing to a simple
+	switch satement from the earlier if-then-else style, looks nicer
+	now IMHO.
+
+2000-07-14    <kalum@roadrunner.grendel.net>
+
+	* main.c: changed dax.h and dax.c to main.h and main.c
+	respectively. This was done because then the exe can be named
+	anything.
+	(message): converted all the calls to the message routine to not
+	to have '/n' at the end of them, since this was messing up the gtk
+	display.	
+
+2000-07-13    <kalum@roadrunner.grendel.net>
+
+	* dax.c (ftp_get_file_chunk): changing the return value when the
+	ftp server dissallows a loging from REMOTEFATAL to  FTPLOGREFUSED.
+	(handle_threads): added support for continuing when a ftp server
+	disallows 4 connections at the same time.....
+
+2000-07-12    <kalum@roadrunner.grendel.net>
+
+	* dax.c: must add locking for the files
+
+2000-07-11    <kalum@roadrunner.grendel.net>
+
+	* http.c (fetch_next_header): TODO make realloc krealloc
+
+	* dax.c: changed the cancellation type for all the download
+	functions to ASYNCHRONUS so that they honour cancellation requests immediately.
+
+2000-07-09    <kalum@roadrunner.grendel.net>
+
+	* interface.h: changed the definition of gtk_do_interface so that
+	it now accepts the file_size parameter. This is necessary to print
+	the percent bar.
+
+	* Makefile ($CFLAGS): Added Wilmer's changes to the Makefile
+
+	* gtk.c (window_update): integrated Wilmer's latest source code,
+	and fixed a small bug in the percent bar display. Added a
+	commandline option --gtk or -g for the user to enable the gtk
+	display. Looks good :)
+	Also added dax.w. 
+	
+
+2000-07-07    <kalum@roadrunner.grendel.net>
+
+	* curses.c (curses_do_interface): check to see whether file size is <0
+
+	* connection.c (http_get_complete_file): added if
+	(connection->status == ALLDONE) to the complete file routines.
+
+2000-07-05    <kalum@roadrunner.grendel.net>
+
+	* dax.c: including curses.h and adding display routines
+
+2000-07-02    <kalum@roadrunner.grendel.net>
+
+	* resume.c (resume_modify_http_connections): make resuming work
+	for one connection as well..it can be done if we have the file
+	length
+	
+
+	* dax.c (http_get_file_chunk): added if status==ALL_DONE then return
+	(ftp_get_file_chunk): TODO change the return values function
+	returns void
+
+2000-07-01    <kalum@roadrunner.grendel.net>
+
+	* dax.c (http_allocate_connections): added fsize for resume support
+
+2000-06-30    <kalum@roadrunner.grendel.net>
+
+	* dax.c (die): added fcloseall()
+
+	* connect.c (connect_to_server): do something about the setsockopt
+	in this file
+
+2000-06-29    <kalum@roadrunner.grendel.net>
+
+	* dax.c (main): moved download_complete_file to connections.c
+	(http_allocate_connections): IS it necessary to modify this function??
+	(do_downloads): Adding support for single connection
+
+	* interface.h: cleaned up unnecessary function definition etc....
+
+	* connection.h: Moved the connection_data and the dl_status out of
+	dax.c to connections.h
+
+	* dax.c (ftp_get_file_chunk): added gettimeofday
+	(http_get_file_chunk): added gettimeof day 
+
+	* dax.h: added the timeval stuctures
+
+	* dax.c: integrating Wilmers gtk interface ( Thanks Wilmer )
+	
+
+
+	

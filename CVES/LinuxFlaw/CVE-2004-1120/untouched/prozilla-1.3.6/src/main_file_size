@@ -1,0 +1,8 @@
+Makefile:dvi-am:
+Makefile:dvi: dvi-am
+Makefile:dvi-am dvi check check-am installcheck-am installcheck install-exec-am \
+Makefile.in:dvi-am:
+Makefile.in:dvi: dvi-am
+Makefile.in:dvi-am dvi check check-am installcheck-am installcheck install-exec-am \
+misc.c:    for (i = l / 2; i >= 0; i--)
+url.c:  for (i = l; i && path[i] != '/'; i--);
