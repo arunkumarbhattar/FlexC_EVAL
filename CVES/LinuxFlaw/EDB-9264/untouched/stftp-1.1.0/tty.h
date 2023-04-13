@@ -1,5 +1,5 @@
-/** \file 
- * The FTP backend. 
+/** \file
+ * Terminal handling (via Curses).
  */
 
 /* Copyright 2006, 2007 Andre Beausoleil.
@@ -21,16 +21,22 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
  */
-struct hostent *testhost(char *host);
-int testport(char *port);
-int ftp_connect(struct sock_hostport hostport);
-char *ftp_read(int sockfd);
-char *ftp_nread(int sockfd, int *size);
-void ftp_write(int sockfd,char *msg);
-int pasv_connect(char *output,struct sock_hostport pasv_info);
-int ftp_cwd(int sockfd, struct sock_hostport info, char *newdir);
-void ftp_retr(int sockfd, struct sock_hostport info, struct listparse *lp);
-int ftp_stor(int sockfd, struct sock_hostport info, FILE *fd, char *path,
-				long int gsize);
-char *send_cmd(int sockfd,char *msg);
-void v_send_cmd(int sockfd,char *msg);
+
+/** Macro for ease of use. Like e_prompt() but always echoes. */
+#define prompt(a,b) e_prompt((a),(b),0);
+
+void curses_init();
+void curses_display();
+int curses_getch();
+void curses_end();
+void fatalerror(char *msg);
+void e_prompt(char *msg, char *input,int becho);
+void p_dir(struct parse_list *head);
+char c_prompt(char *msg);
+void error(char *msg);
+void status(char *msg);
+void header(char *msg);
+void set_line(int set);
+int get_line();
+int inc_line();
+int dec_line();
