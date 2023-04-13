@@ -54,7 +54,7 @@ struct parse_list *get_element(struct parse_list *head, int i) {
 
 	return cur;
 }
-
+#pragma TLIB_SCOPE on
 /**
  * The main I/O loop; this is where the program spends a majority of its
  * time. Takes in commands from the user and then does something based on
@@ -156,7 +156,7 @@ int cmd_loop(int sockfd,struct sock_hostport info,char *dir,
 					ftp_write(sockfd,"DELE ");
 					ftp_write(sockfd,output);
 					free(output);
-					output = send_cmd(sockfd,"\r\n");
+					output = (char*)send_cmd(sockfd,"\r\n");
 					strip_nl(output);
 					if(str_begin(output,"2")) { /* Success. Redisplay the screen */
 						fnullify(fhead);
@@ -168,7 +168,7 @@ int cmd_loop(int sockfd,struct sock_hostport info,char *dir,
 						set_line(1);
 						pos = 1;
 					}
-					free(output);
+					//free(output);
 				}
 				else {
 					status("");
@@ -195,7 +195,7 @@ int cmd_loop(int sockfd,struct sock_hostport info,char *dir,
 				output = malloc(1024);
 				e_prompt("Directory: ",output,1);
 				if(ftp_cwd(sockfd,info,output)) {
-					output = send_cmd(sockfd,"PWD\n"); /* Where are we?! */
+					output = (char*)send_cmd(sockfd,"PWD\n"); /* Where are we?! */
 					if(str_begin(output,"257 ")) { /* :) */
 						parse_pwd(output,dir);
 						p_header(info.name,dir);
@@ -215,10 +215,10 @@ int cmd_loop(int sockfd,struct sock_hostport info,char *dir,
 				break;
 			case 'u': /* Move up a directory level */
 			case KEY_LEFT: /* A good synonym */
-				output = send_cmd(sockfd,"CDUP\r\n");
+				output = (char*)send_cmd(sockfd,"CDUP\r\n");
 				if(str_begin(output,"2")) {
 					free(output);
-					output = send_cmd(sockfd,"PWD\n"); /* Where are we?! */
+					output = (char*)send_cmd(sockfd,"PWD\n"); /* Where are we?! */
 					if(str_begin(output,"257 ")) { /* :) */
 						parse_pwd(output,dir);
 						p_header(info.name,dir);
@@ -278,7 +278,7 @@ int cmd_loop(int sockfd,struct sock_hostport info,char *dir,
 					/* Is it a directory? */
 					if(cur->lp->flagisdir) {
 						if(ftp_cwd(sockfd,info,cur->lp->name)) {
-							output = send_cmd(sockfd,"PWD\n"); /* Where are we?! */
+							output = (char*)send_cmd(sockfd,"PWD\n"); /* Where are we?! */
 							pwdtest: if(str_begin(output,"257 ")) { /* :) */
 								parse_pwd(output,dir);
 								p_header(info.name,dir);
@@ -544,3 +544,4 @@ char *local_loop() {
 
 	return NULL;
 }
+#pragma TLIB_SCOPE off

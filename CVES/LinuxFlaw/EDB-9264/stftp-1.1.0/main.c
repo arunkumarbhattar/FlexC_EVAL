@@ -149,19 +149,20 @@ void print_version() {
  * \param info Host and port information.
  * \return A parse_list with all the directory entries.
  */
+#pragma TLIB_SCOPE on
 struct parse_list *get_list(int sockfd,struct sock_hostport info) {
-	char *output = send_cmd(sockfd,"PASV\n");
+	_TPtr<char> output = send_cmd(sockfd,"PASV\n");
 	struct parse_list *head;
 	int pasvfd;
 
 	if(str_begin(output,"227 ")) {
 		pasvfd = pasv_connect(output,info); /* Connect to the PASV port */
-		free(output);
+		hoard_free(output);
 		ftp_write(sockfd,"LIST\r\n");
 		output = ftp_read(sockfd);
 		strip_nl(output);
 		if(str_begin(output,"1")) { /* We will be receiving the listing! */
-			free(output);
+			hoard_free(output);
 			output = ftp_read(pasvfd);
 			char *help;
 			while((help = ftp_read(pasvfd)) != NULL) {
@@ -181,7 +182,7 @@ struct parse_list *get_list(int sockfd,struct sock_hostport info) {
 			output = ftp_read(sockfd); /* This probably says 226 */
 			strip_nl(output);
 			status(output);
-			free(output);
+			hoard_free(output);
 		}
 		else { /* I really should have some handling for this */
 			fatalerror(output);
@@ -193,7 +194,7 @@ struct parse_list *get_list(int sockfd,struct sock_hostport info) {
 
 	return head;
 }
-
+#pragma TLIB_SCOPE o
 /** 
  * The main function. Probably does more than it should at this point.
  * It mainly does initializing things, like ask for the username & pass, and
@@ -320,19 +321,19 @@ int main(int argc, char *argv[]) {
 	if(!str_begin(output,"230")) { /* 230 means we don't need a password */
 		status("Sending password...");
 		if(str_begin(output,"331")) { /* We do, in fact, need a password. */
-			free(output);
+			hoard_free(output);
 			sprintf(msg,"PASS %s\n",password);
 			output = send_cmd(sockfd,msg);
 			pwdtest: if(str_begin(output,"230 ")) { /* Space implies no msg */
-				free(output); /* Well, OK */
+				hoard_free(output); /* Well, OK */
 			}
 			else if(str_begin(output,"230")) { /* All right, fine */
 				if(strstr(output,"230 ") != 0) {
 					status(strstr(output,"230 "));
-					free(output);
+					hoard_free(output);
 				}
 				else { /* Read from the socket again, we've yet to be done */
-					free(output);
+					hoard_free(output);
 					output = ftp_read(sockfd);
 					strip_nl(output);
 					status(output);
@@ -341,13 +342,13 @@ int main(int argc, char *argv[]) {
 			}
 			else if(str_begin(output,"530")) {
 				curses_getch(); /* Let this sink in. */
-				free(output);
+				hoard_free(output);
 				output = malloc(1024);
 				sprintf(msg,"%s@%s password: ",username,sock_info.name);
 				prompt(msg,output);
 				password = malloc(strlen(output));
 				strcpy(password,output);
-				free(output);
+				hoard_free(output);
 				goto login; /* SPAGHETTI CODE WOO */
 			}
 			else { /* We COULD still have a 230 hiding in there somewhere. */
@@ -365,12 +366,12 @@ int main(int argc, char *argv[]) {
 	}
 	else { /* Cool, we didn't need a password */
 		while(strstr(output,"230 ") == 0) {
-			free(output);
+			hoard_free(output);
 			output = ftp_read(sockfd);
 			strip_nl(output);
 		}
 		status(strstr(output,"230 "));
-		free(output);
+		hoard_free(output);
 	}
 
 	free(password);
@@ -380,7 +381,7 @@ int main(int argc, char *argv[]) {
 	if(str_begin(output,"257 ")) { /* :) */
 		parse_pwd(output,dir);
 		p_header(sock_info.name,dir);
-		free(output);
+		hoard_free(output);
 	}
 	else { /* ?_? */
 		fatalerror(output);
@@ -391,7 +392,7 @@ int main(int argc, char *argv[]) {
 	if(!str_begin(output,"200 ")) {
 		fatalerror(output);
 	}
-	free(output);
+	hoard_free(output);
 
 	/* Now we go into passive mode and actually ask for the dir listing. */
 	head = get_list(sockfd,sock_info);
@@ -409,8 +410,8 @@ int main(int argc, char *argv[]) {
 	close(sockfd); /* Close the socket connection */
 	curses_end();
 	printf("%s\n",output);
-	free(output);
+	hoard_free(output);
 
 	return 0;
-} 
+}
 

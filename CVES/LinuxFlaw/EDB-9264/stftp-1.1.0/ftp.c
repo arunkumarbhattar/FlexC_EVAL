@@ -221,6 +221,24 @@ char *ftp_nread(int sockfd,int *size) {
 	return data;
 }
 
+#pragma TLIB_SCOPE on
+_TPtr<char> _T_ftp_nread(int sockfd,int *size) {
+    _TPtr<char> data = NULL;
+    data = hoard_calloc(4096,sizeof(char)); /* 4K is really the most anyone should send */
+
+    *size = read(sockfd,(char*)data,4095);
+    if(*size < 0) {
+        hoard_free(data);
+        fatalerror("!!Socket read failed");
+    }
+    else if(*size == 0) { /* EOF */
+        hoard_free(data);
+        return NULL;
+    }
+
+    return data;
+}
+#pragma TLIB_SCOPE off
 /**
  * Send some data to the FTP server.
  *
@@ -310,19 +328,20 @@ int pasv_connect(char *output,struct sock_hostport pasv_info) {
  * \param newdir The directory we'd like to change to. 
  * \return 1 for success, else 0.
  */
+#pragma TLIB_SCOPE on
 int ftp_cwd(int sockfd, struct sock_hostport info, char *newdir) {
 	char msg[strlen(newdir)+7];
 	strcpy(msg,"CWD ");
 	strcat(msg,newdir);
 	strcat(msg,"\r\n");
 
-	char *output = send_cmd(sockfd,msg);
-	if(str_begin(output,"2")) {
-		free(output);
+	_TPtr<char> output = send_cmd(sockfd,msg);
+	if(str_begin((char*)output,"2")) {
+		hoard_free(output);
 		return 1;
 	}
 	else {
-		free(output);
+		hoard_free(output);
 		return 0;
 	}
 }
@@ -335,7 +354,7 @@ int ftp_cwd(int sockfd, struct sock_hostport info, char *newdir) {
  * \param lp The structure holding file information.
  */
 void ftp_retr(int sockfd, struct sock_hostport info, struct listparse *lp) {
-	char *output;
+	_TPtr<char> output = NULL;
 	int pasvfd;
 	char *name = malloc((lp->namelen)+9);
 	FILE *fd;	/* The local file */
@@ -356,23 +375,23 @@ void ftp_retr(int sockfd, struct sock_hostport info, struct listparse *lp) {
 	}
 
 	output = send_cmd(sockfd,"PASV\r\n");
-	if(str_begin(output,"227")) {
-		pasvfd = pasv_connect(output,info);
-		free(output);
+	if(str_begin((char*)output,"227")) {
+		pasvfd = pasv_connect((char*)output,info);
+		hoard_free(output);
 		ftp_write(sockfd,"RETR ");
 		ftp_write(sockfd,name);
 		output = send_cmd(sockfd,"\r\n");
-		strip_nl(output);
-		if(str_begin(output,"1")) { /* ok go */
-			free(output);
+		strip_nl((char*)output);
+		if(str_begin((char*)output,"1")) { /* ok go */
+			hoard_free(output);
 			b_time = time(NULL);
 			time1 = b_time;
-			output = ftp_nread(pasvfd,&csize);
+			output = _T_ftp_nread(pasvfd,&csize);
 			stat_line = malloc(160);
 			while(csize != 0) {
-				fwrite(output,1,csize,fd);
+				fwrite((char*)output,1,csize,fd);
 				size += csize;
-				free(output);
+				hoard_free(output);
 				time2 = time(NULL);
 				if(time2 - time1 >= 1) { /* Update the progress each second */
 					sprintf(stat_line,"Downloading %s: %li/%li (%.1f%%)",name,size,
@@ -380,13 +399,13 @@ void ftp_retr(int sockfd, struct sock_hostport info, struct listparse *lp) {
 					status(stat_line);
 					time1 = time(NULL);
 				}
-				output = ftp_nread(pasvfd,&csize);
+				output = _T_ftp_nread(pasvfd,&csize);
 			}
 			close(pasvfd);
 
-			output = ftp_read(sockfd);
-			strip_nl(output);
-			if(str_begin(output,"22")) { /* Most likely good */
+			output = _T_ftp_read(sockfd);
+			strip_nl((char*)output);
+			if(str_begin((char*)output,"22")) { /* Most likely good */
 				if(size != lp->size) {
 					error("WARNING: File may be truncated!");
 				}
@@ -396,7 +415,7 @@ void ftp_retr(int sockfd, struct sock_hostport info, struct listparse *lp) {
 				time2++;
 			}
 
-			status(output);
+			_T_status(output);
 			sprintf(stat_line,"Download complete: %li bytes in %li seconds (%.1fKb/s)",
 				size,(long)time2-b_time,(double)size/(time2-b_time)/1024);
 			status(stat_line);
@@ -407,7 +426,7 @@ void ftp_retr(int sockfd, struct sock_hostport info, struct listparse *lp) {
 		}
 	}
 
-	free(output);
+	hoard_free(output);
 	free(name);
 	fclose(fd);
 }
@@ -434,7 +453,7 @@ int ftp_stor(int sockfd, struct sock_hostport info, FILE *fd, char *path,
 	 * not, crap. Then it's probably a good idea to refresh the remote
 	 * server screen. THE END. */
 	
-	char *output;
+	_TPtr<char> output = NULL;
 	int pasvfd;
 	long int size = 0; /* Running total of file size */
 	int csize = 0; /* Instantaneous size */
@@ -443,25 +462,25 @@ int ftp_stor(int sockfd, struct sock_hostport info, FILE *fd, char *path,
 	int ok = 0;
 
 	output = send_cmd(sockfd,"PASV\r\n");
-	if(str_begin(output,"227")) {
-		pasvfd = pasv_connect(output,info);
-		free(output);
+	if(str_begin((char*)output,"227")) {
+		pasvfd = pasv_connect((char*)output,info);
+		hoard_free(output);
 		ftp_write(sockfd,"STOR ");
 		ftp_write(sockfd,path);
 		output = send_cmd(sockfd,"\r\n");
-		strip_nl(output);
-		if(str_begin(output,"1")) { /* all right to proceed */
+		strip_nl((char*)output);
+		if(str_begin((char*)output,"1")) { /* all right to proceed */
 			ok = 1;
-			free(output);
+			hoard_free(output);
 			b_time = time(NULL);
 			time1 = b_time;
-			output = calloc(4096,sizeof(char));
+			output = hoard_calloc(4096,sizeof(char));
 			stat_line = malloc(160);
-			csize = fread(output,sizeof(char),4095,fd);
+			csize = fread((char*)output,sizeof(char),4095,fd);
 			size += csize;
 			while(csize != 0) {
-				ftp_nwrite(pasvfd,output,csize);
-				free(output);
+				ftp_nwrite(pasvfd,(char*)output,csize);
+				hoard_free(output);
 				time2 = time(NULL);
 				if(time2 - time1 >= 1) {
 					sprintf(stat_line,"Uploading %s: %li/%li (%.1f%%)",path,size,
@@ -469,17 +488,17 @@ int ftp_stor(int sockfd, struct sock_hostport info, FILE *fd, char *path,
 					status(stat_line);
 					time1 = time(NULL);
 				}
-				output = calloc(4096,sizeof(char));
-				csize = fread(output,sizeof(char),4095,fd);
+				output = hoard_calloc(4096,sizeof(char));
+				csize = fread((char*)output,sizeof(char),4095,fd);
 				size += csize;
 			}
 			close(pasvfd);
 
-			free(output);
+			hoard_free(output);
 
-			output = ftp_read(sockfd);
-			strip_nl(output);
-			if(str_begin(output,"22")) {
+			output = _T_ftp_read(sockfd);
+			strip_nl((char*)output);
+			if(str_begin((char*)output,"22")) {
 				if(size != gsize) {
 					error("WARNING: File may be truncated!");
 				}
@@ -489,7 +508,7 @@ int ftp_stor(int sockfd, struct sock_hostport info, FILE *fd, char *path,
 				time2++;
 			}
 
-			status(output);
+			_T_status(output);
 			sprintf(stat_line,"Upload complete: %li bytes in %li seconds (%.1fKb/s)",
 				size,(long)time2-b_time,(double)size/(time2-b_time)/1024);
 			status(stat_line);
@@ -500,7 +519,7 @@ int ftp_stor(int sockfd, struct sock_hostport info, FILE *fd, char *path,
 		}
 	}
 
-	free(output);
+	hoard_free(output);
 	fclose(fd);
 	
 	return ok;
@@ -515,18 +534,16 @@ int ftp_stor(int sockfd, struct sock_hostport info, FILE *fd, char *path,
  * \param msg What we want to appear in the status bar.
  * \return Data read from socket.
  */
-char *send_cmd(int sockfd,char *msg) {
+_TPtr<char> send_cmd(int sockfd,char *msg) {
 	_TPtr<char> output = NULL;
 
 	ftp_write(sockfd,msg);
 	output = _T_ftp_read(sockfd);
 #pragma TLIB_SCOPE on
     strip_nl((char*)output);
-    _T_status(output);
 #pragma TLIB_SCOPE off
-    char* tmp = (char*)malloc(t_strlen(output) + 1);
-    t_strcpy(tmp, output);
-	return tmp;
+    _T_status(output);
+	return output;
 }
 
 /**
@@ -536,7 +553,8 @@ char *send_cmd(int sockfd,char *msg) {
  * \param msg What we want to appear in the status bar.
  */
 void v_send_cmd(int sockfd,char *msg) {
-	free(send_cmd(sockfd,msg));
+	hoard_free(send_cmd(sockfd,msg));
 
 	return;
 }
+#pragma TLIB_SCOPE off
