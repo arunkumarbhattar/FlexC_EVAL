@@ -1,1 +1,2 @@
 *.wav filter=lfs diff=lfs merge=lfs -text
+CVES/LinuxFlaw/CVE-2004-1292/31.wav filter=lfs diff=lfs merge=lfs -text
